@@ -208,7 +208,7 @@ public class Radis extends javax.swing.JFrame {
                 }
             }
             jLabel2.setText(String.valueOf(successProcess.size()));
-            jLabel2.setText(String.valueOf(totalRegistry - successProcess.size()));
+            jLabel4.setText(String.valueOf(totalRegistry - successProcess.size()));
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("error", e);
