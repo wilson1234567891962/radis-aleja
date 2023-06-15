@@ -1,0 +1,14 @@
+com\co\radis\model\User.class
+com\co\redis\radis\Radis.class
+com\co\redis\radis\Radis$3.class
+com\co\radis\model\Data.class
+com\co\radis\utilities\Utilities.class
+com\co\redis\radis\Radis$4.class
+com\co\redis\radis\Radis$1.class
+com\co\radis\model\RspGrb.class
+com\co\radis\model\Resultado.class
+com\co\redis\radis\Radis$2.class
+com\co\radis\utilities\Constant.class
+com\co\radis\model\InformationUser.class
+com\co\radis\utilities\Excel.class
+com\co\radis\model\Beneficiarios.class
