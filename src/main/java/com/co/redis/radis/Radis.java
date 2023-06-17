@@ -184,7 +184,7 @@ public class Radis extends javax.swing.JFrame {
                         User user = new Gson().fromJson(json, User.class);
                         for (Map.Entry<String, InformationUser> entry : user.getBeneficiarios().entrySet()) {
                             InformationUser value = entry.getValue();
-                            json = Utilities.sendInformation(properties, users[positionId], value.getId_beneficiario(), formatDate, user.getTipo_toma());
+                            json = Utilities.sendInformation(properties, users[positionId], value.getId_programacion(), formatDate, user.getTipo_toma());
                             logger.info("Respuesta recibia en la segunda peticion " + json);
                             Data data = new Gson().fromJson(json, Data.class);
                             if (properties.getProperty(Constant.FORMAT_MESSAGE).equals(data.getEstado())) {
