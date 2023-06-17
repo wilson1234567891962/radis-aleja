@@ -82,7 +82,7 @@ public class Utilities {
             params.add(new BasicNameValuePair("datos[dc_beneficiario]", dcBeneficiario));
             params.add(new BasicNameValuePair("datos[id_programacion]", idProgramacion));
             params.add(new BasicNameValuePair("tipo_dia", props.getProperty(Constant.TIPO_HAB)));
-            params.add(new BasicNameValuePair("tipo_dia", dateSystem));
+            params.add(new BasicNameValuePair("fecareg", dateSystem));
             params.add(new BasicNameValuePair("tipo_toma", tipoCons));
             params.add(new BasicNameValuePair("id_solicitud_sel", props.getProperty(Constant.TIPO_ID_SOLICITUD)));
             params.add(new BasicNameValuePair("biometria", props.getProperty(Constant.BIOMETRY)));
