@@ -176,29 +176,46 @@ public class Radis extends javax.swing.JFrame {
 
             for (String it : dto) {
                 String[] users = it.split("\\|");
+
                 try {
-                    if (!successProcess.contains(users[positionId])) {
-                        String json = Utilities.getInformation(properties, users[positionId], formatDate, formatCountry);
-                        logger.info("Numero de identificacion " + users[positionId]);
-                        logger.info("Respuesta recibia en la primera peticion " + json);
-                        User user = new Gson().fromJson(json, User.class);
-                        for (Map.Entry<String, InformationUser> entry : user.getBeneficiarios().entrySet()) {
-                            InformationUser value = entry.getValue();
-                            json = Utilities.sendInformation(properties, users[positionId], value.getId_programacion(), formatDate, user.getTipo_toma());
-                            logger.info("Respuesta recibia en la segunda peticion " + json);
-                            Data data = new Gson().fromJson(json, Data.class);
-                            if (properties.getProperty(Constant.FORMAT_MESSAGE).equals(data.getEstado())) {
-                                Object[] row = {users[namePosition], users[positionId], messageSuccess};
-                                model.addRow(row);
-                                successProcess.add(users[positionId]);
-                            } else {
-                                Object[] row = {users[namePosition], users[positionId], messageFailed};
-                                model.addRow(row);
+
+                    Thread t1 = new Thread(new Runnable() {
+                        public void run()
+                        {
+                            try {
+                                if (!successProcess.contains(users[positionId])) {
+                                    String json = Utilities.getInformation(properties, users[positionId], formatDate, formatCountry);
+                                    logger.info("Numero de identificacion " + users[positionId]);
+                                    logger.info("Respuesta recibia en la primera peticion " + json);
+                                    User user = new Gson().fromJson(json, User.class);
+                                    for (Map.Entry<String, InformationUser> entry : user.getBeneficiarios().entrySet()) {
+                                        InformationUser value = entry.getValue();
+                                        json = Utilities.sendInformation(properties, users[positionId], value.getId_programacion(), formatDate, user.getTipo_toma());
+                                        logger.info("Respuesta recibia en la segunda peticion " + json);
+                                        Data data = new Gson().fromJson(json, Data.class);
+                                        if (properties.getProperty(Constant.FORMAT_MESSAGE).equals(data.getEstado())) {
+                                            logger.info("Se agrego lo sigueuiente" +  users[namePosition]);
+                                            Object[] row = {users[namePosition], users[positionId], messageSuccess};
+                                            model.addRow(row);
+                                            successProcess.add(users[positionId]);
+                                        } else {
+                                            logger.warn("Se presento falla en el siguiente usuario" +  users[namePosition]);
+                                            Object[] row = {users[namePosition], users[positionId], messageFailed};
+                                            model.addRow(row);
+                                        }
+
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                logger.error(e);
                             }
 
-                            break;
-                        }
-                    }
+                        }});
+                    t1.start();
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     logger.error(e);
